@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Box,
   Typography,
@@ -7,7 +7,8 @@ import {
   MenuItem,
   CircularProgress,
 } from "@mui/material";
-
+import AOS from "aos";
+import "aos/dist/aos.css";
 interface User {
   id: string;
   username: string;
@@ -36,8 +37,19 @@ const TaskForm: React.FC<TaskFormProps> = ({
   loading,
   handleTaskSubmit,
 }) => {
+  useEffect(() => {
+    AOS.init({
+      offset: 20,
+    });
+    AOS.refresh();
+  }, []);
   return (
-    <Box sx={{ mt: 4 }}>
+    <Box
+      data-aos="fade-right"
+      data-aos-duration="1000"
+      data-aos-delay="600"
+      sx={{ mt: 4 }}
+    >
       <Typography variant="h4">
         <b className="colors">Create Task </b>
       </Typography>

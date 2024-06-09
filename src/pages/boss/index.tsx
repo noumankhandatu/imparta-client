@@ -6,6 +6,8 @@ import EmployeesList from "../../components/boss/EmployeesList";
 import TaskForm from "../../components/boss/TaskForm";
 import TasksList from "../../components/boss/TasksList";
 import LogoutMenu from "../../components/menu";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 interface User {
   id: string;
@@ -22,6 +24,11 @@ interface Task {
 }
 
 const BossComponents: React.FC = () => {
+  useEffect(() => {
+    AOS.init();
+    AOS.refresh();
+  }, []);
+
   const [users, setUsers] = useState<User[]>([]);
   const [tasks, setTasks] = useState<Task[]>([]);
   const [taskTitle, setTaskTitle] = useState("");
@@ -112,7 +119,11 @@ const BossComponents: React.FC = () => {
 
   return (
     <Box sx={{ p: 6 }}>
-      <Box display={"flex"} justifyContent={"space-between"}>
+      <Box
+        data-aos="fade-right"
+        display={"flex"}
+        justifyContent={"space-between"}
+      >
         <div></div>
         <Typography variant="h5" align="center" sx={{ mt: 3 }}>
           {greeting}, <span>Welcome Back to Imparta 😊</span>

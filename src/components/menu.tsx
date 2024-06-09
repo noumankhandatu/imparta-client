@@ -12,11 +12,13 @@ export default function LogoutMenu() {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
+    setAnchorEl(false);
+  };
+  const handleLogout = () => {
     localStorage.removeItem("userdata");
     window.location.reload();
     toast.success("Logout successfully");
   };
-
   return (
     <div>
       <IconButton>
@@ -31,7 +33,7 @@ export default function LogoutMenu() {
           "aria-labelledby": "basic-button",
         }}
       >
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
     </div>
   );
