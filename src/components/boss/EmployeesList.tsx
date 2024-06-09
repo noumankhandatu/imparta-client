@@ -21,7 +21,7 @@ interface User {
 }
 
 interface EmployeesListProps {
-  users: User[] | unknown;
+  users: User[];
 }
 
 const EmployeesList: React.FC<EmployeesListProps> = ({ users }) => {
@@ -29,7 +29,7 @@ const EmployeesList: React.FC<EmployeesListProps> = ({ users }) => {
     <div>
       <div style={{ height: 70 }} />
       <Typography sx={{ textAlign: "left" }} variant="h4">
-        <b className="colors">Your Employees </b>
+        <b className="colors">Your Employees</b>
       </Typography>
       <Divider sx={{ my: 3 }} />
       <div style={{ height: 70 }} />
@@ -46,19 +46,29 @@ const EmployeesList: React.FC<EmployeesListProps> = ({ users }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {users.map((user) => (
-              <TableRow key={user.id}>
-                <TableCell>
-                  <Avatar sx={{ bgcolor: "primary.main" }}>
-                    <PersonIcon />
-                  </Avatar>
+            {users.length > 0 ? (
+              users.map((user: User) => (
+                <TableRow key={user.id}>
+                  <TableCell>
+                    <Avatar sx={{ bgcolor: "primary.main" }}>
+                      <PersonIcon />
+                    </Avatar>
+                  </TableCell>
+                  <TableCell>{user.username}</TableCell>
+                  <TableCell>{user.password}</TableCell>
+                  <TableCell>{user.role}</TableCell>
+                  <TableCell>{user.id}</TableCell>
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={5}>
+                  <Typography textAlign={"center"} mt={4} mb={4} variant="h6">
+                    No Employee found
+                  </Typography>
                 </TableCell>
-                <TableCell>{user.username}</TableCell>
-                <TableCell>{user.password}</TableCell>
-                <TableCell>{user.role}</TableCell>
-                <TableCell>{user.id}</TableCell>
               </TableRow>
-            ))}
+            )}
           </TableBody>
         </Table>
       </TableContainer>

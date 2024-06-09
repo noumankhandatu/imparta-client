@@ -21,17 +21,31 @@ import {
 } from "@mui/icons-material";
 import { toast } from "react-toastify";
 import LogoutMenu from "../../components/menu";
+import AOS from "aos";
+import "aos/dist/aos.css";
+
+interface Task {
+  id: string;
+  title: string;
+  description: string;
+  isCompleted: boolean;
+}
 
 const User: React.FC = () => {
-  let data = null;
+  useEffect(() => {
+    AOS.init();
+    AOS.refresh();
+  }, []);
+  let data: { id: string } | null = null;
   const userDataString = localStorage.getItem("userdata");
   if (userDataString) {
     data = JSON.parse(userDataString);
   }
   console.log(data?.id, "data");
-  const [greeting, setGreeting] = useState("");
-  const [tasks, setTasks] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
+
+  const [greeting, setGreeting] = useState<string>("");
+  const [tasks, setTasks] = useState<Task[]>([]);
+  const [searchTerm, setSearchTerm] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
 
   useEffect(() => {
@@ -75,7 +89,12 @@ const User: React.FC = () => {
   };
 
   return (
-    <Box sx={{ p: 6 }}>
+    <Box
+      data-aos="zoom-in"
+      data-aos-duration="1000"
+      data-aos-delay="600"
+      sx={{ p: 6 }}
+    >
       <Box display={"flex"} justifyContent={"space-between"}>
         <div>
           <Typography variant="h5" sx={{ mt: 3 }}>
