@@ -8,3 +8,18 @@
   scroll-behavior: smooth;
   font-family: "Oxygen" !important;
 }
+
+.colors {
+  background: linear-gradient(90deg, #12c2e9 0%, #c471ed 50%, #f64f59 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.shadow {
+  -webkit-box-shadow: 10px 10px 80px -15px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 10px 10px 80px -15px rgba(0, 0, 0, 0.75);
+  box-shadow: 10px 10px 80px -15px rgba(0, 0, 0, 0.75);
+}
+
+.br {
+  border-radius: 10px;
+}
