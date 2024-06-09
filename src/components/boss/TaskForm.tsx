@@ -86,6 +86,7 @@ const TaskForm: React.FC<TaskFormProps> = ({
       <div style={{ height: 30 }} />
 
       <Button
+        color="secondary"
         variant="contained"
         onClick={handleTaskSubmit}
         disabled={!taskTitle || !taskDescription || !assignedUserId || loading}

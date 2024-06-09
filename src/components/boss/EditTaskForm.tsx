@@ -96,7 +96,7 @@ const EditTaskForm: React.FC<EditTaskFormProps> = ({
           />
         </DialogContent>
         <DialogActions>
-          <Button type="submit" variant="contained" color="primary">
+          <Button type="submit" variant="contained" color="secondary">
             Update Task
           </Button>
           <Button onClick={onClose} color="secondary">
