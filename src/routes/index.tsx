@@ -12,7 +12,7 @@ const AppRoutes: React.FC = () => {
   if (userDataString) {
     data = JSON.parse(userDataString);
   }
-  console.log(data, "data");
+
   return (
     <>
       {data?.role === USER ? (

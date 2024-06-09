@@ -21,6 +21,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import LoopIcon from "@mui/icons-material/Loop";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import { toast } from "react-toastify";
 
 interface Task {
   id: string;
@@ -107,8 +108,9 @@ const TasksList: React.FC<TasksListProps> = ({
       );
       if (response.ok) {
         onDelete(taskId);
+        toast.success("Task deleted");
       } else {
-        console.error("Failed to delete the task");
+        toast.error("Failed to delete the task");
       }
     } catch (error) {
       console.error("Error deleting task:", error);

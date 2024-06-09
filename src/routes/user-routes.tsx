@@ -1,7 +1,11 @@
-import React from "react";
+import User from "../pages/user";
 
 const UserRoutes = () => {
-  return <div>UserRoutes</div>;
+  return (
+    <div>
+      <User />
+    </div>
+  );
 };
 
 export default UserRoutes;
