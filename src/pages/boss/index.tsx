@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import EmployeesList from "../../components/boss/EmployeesList";
 import TaskForm from "../../components/boss/TaskForm";
 import TasksList from "../../components/boss/TasksList";
+import LogoutMenu from "../../components/menu";
 
 interface User {
   id: string;
@@ -27,6 +28,7 @@ const BossComponents: React.FC = () => {
   const [taskDescription, setTaskDescription] = useState("");
   const [assignedUserId, setAssignedUserId] = useState("");
   const [loading, setLoading] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [error, setError] = useState<string | null>(null);
   const [greeting, setGreeting] = useState("");
 
@@ -110,10 +112,15 @@ const BossComponents: React.FC = () => {
 
   return (
     <Box sx={{ p: 6 }}>
-      <Typography variant="h5" align="center" sx={{ mt: 3 }}>
-        {greeting}, <span>Welcome Back to Imparta 😊</span>
-        <Divider sx={{ my: 3 }} />
-      </Typography>
+      <Box display={"flex"} justifyContent={"space-between"}>
+        <div></div>
+        <Typography variant="h5" align="center" sx={{ mt: 3 }}>
+          {greeting}, <span>Welcome Back to Imparta 😊</span>
+        </Typography>
+        <LogoutMenu />
+      </Box>
+      <Divider sx={{ my: 3 }} />
+
       <TaskForm
         users={users}
         taskTitle={taskTitle}

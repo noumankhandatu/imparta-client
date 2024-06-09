@@ -19,6 +19,8 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SearchIcon from "@mui/icons-material/Search";
 import LoopIcon from "@mui/icons-material/Loop";
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 
 interface Task {
   id: string;
@@ -38,7 +40,7 @@ interface User {
 interface TasksListProps {
   tasks: Task[];
   loading: boolean;
-  users: User[];
+  users: User[] | unknown;
   onTaskUpdate: (updatedTask: Task) => void;
   onDelete: (taskId: string) => void;
 }
@@ -51,9 +53,34 @@ const TasksList: React.FC<TasksListProps> = ({
 }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
+  const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
+  const [sortBy, setSortBy] = useState<"title" | "isCompleted">("title");
+
+  const toggleSort = (column: "title" | "isCompleted") => {
+    if (sortBy === column) {
+      setSortDirection((prev) => (prev === "asc" ? "desc" : "asc"));
+    } else {
+      setSortBy(column);
+      setSortDirection("asc");
+    }
+  };
+
+  // Sort tasks based on sorting criteria
+  const sortedTasks = tasks.slice().sort((a, b) => {
+    if (sortBy === "title") {
+      return sortDirection === "asc"
+        ? a.title.localeCompare(b.title)
+        : b.title.localeCompare(a.title);
+    } else if (sortBy === "isCompleted") {
+      return sortDirection === "asc"
+        ? Number(a.isCompleted) - Number(b.isCompleted)
+        : Number(b.isCompleted) - Number(a.isCompleted);
+    }
+    return 0;
+  });
 
   // Filter tasks based on search term
-  const filteredTasks = tasks.filter((task) =>
+  const filteredTasks = sortedTasks.filter((task) =>
     task.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -140,7 +167,23 @@ const TasksList: React.FC<TasksListProps> = ({
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>Detail</TableCell>
+                <TableCell>
+                  <Typography variant="subtitle1">
+                    Title
+                    {sortBy === "title" && (
+                      <IconButton
+                        size="small"
+                        onClick={() => toggleSort("title")}
+                      >
+                        {sortDirection === "asc" ? (
+                          <ArrowUpwardIcon />
+                        ) : (
+                          <ArrowDownwardIcon />
+                        )}
+                      </IconButton>
+                    )}
+                  </Typography>
+                </TableCell>
                 <TableCell>Status</TableCell>
                 <TableCell>Action</TableCell>
               </TableRow>
